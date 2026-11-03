@@ -1,0 +1,133 @@
+---
+title: "Differential expression, and what it misses"
+subtitle: "TCGA liver cancer: 15,312 genes, 5,671 differential, and the isoform shifts hiding behind them"
+toc: false
+format:
+  html:
+    page-layout: full
+---
+
+::: {.panel-tabset}
+
+## Article
+
+Ten patients from the TCGA liver hepatocellular carcinoma cohort, each contributing a tumour
+sample and an adjacent normal one. Twenty libraries, ~60,000 genes measured by RNA
+sequencing, and one question: which genes change between the two tissues.
+
+The naive answer is thousands of them. The interesting part is what that answer leaves out.
+
+## The confound
+
+Before any testing, the counts get a variance-stabilising transform and a PCA. The first two
+components should separate the conditions if the design is sound, and they do — normal
+samples tight on one side at 18% of variance, tumours spread across the other.
+
+That spread is the problem. Two of the ten patients are female, and the vertical structure in
+the tumour cluster is partly gender. A model of condition alone is then not testing
+condition; it is testing condition plus whatever gender happens to correlate with.
+
+Refitting with `~ gender + condition` costs 107 genes: 5,778 significant before, 5,671 after
+at a 5% false discovery rate. The estimate is that it matters less than the shape of the PCA
+suggests, which is itself a result — a confound that is present but not dominant is different
+from one that isn't there.
+
+## The pathways that come back
+
+The 5,671 genes get ranked by their test statistic and pushed through preranked GSEA against
+the MSigDB biological-process collection, 15 to 500 genes per set. 865 gene sets come back
+significant.
+
+They are overwhelmingly cell cycle: chromosome segregation, nuclear chromosome segregation,
+mitotic nuclear division, sister chromatid segregation, DNA replication, with normalised
+enrichment scores around 2.3 to 2.85 and adjusted p-values below 10⁻³⁴. The direction is what
+liver cancer biology predicts — a tumour that has lost differentiation and re-entered the
+cell cycle.
+
+Against that, the top negative enrichment scores are metabolic: organic acid catabolism,
+small-molecule catabolism, fatty acid metabolism, at −2.6 to −3.0. Those are the processes
+the normal liver does and the tumour stops doing.
+
+Two coherent stories, pointing opposite ways, from one ranked list. A leading-edge gene from
+the top set is NUF2, part of the NDC80 kinetochore complex that attaches chromosomes to
+spindle microtubules; UBE2C and NEK2 are in the same short list, both mitotic.
+
+## What it misses
+
+DESeq2 tests genes. A gene can be equally abundant in both tissues and still be doing
+something different — making a different isoform of the same transcript. That is differential
+transcript usage, and it is invisible to a gene-level test by construction.
+
+DEXSeq asks the other question. Counts per isoform, a generalised linear model with a
+per-sample baseline and a per-isoform baseline, then a likelihood-ratio test of whether the
+condition interacts with isoform identity:
+
+```r
+{{< include systems/chunks/06_dexseq_model.R >}}
+```
+
+Over 519 genes, 880 isoforms show significant usage shifts. The top five by adjusted
+p-value are KHK, UGP2, CLEC1B, FN1 and GSTZ1 — fructose metabolism, glycogen precursor
+synthesis, a platelet receptor, an extracellular matrix protein, and an oxidative-stress
+enzyme. Liver-specific metabolism, immune recognition and tissue architecture, which is the
+same story as the gene-level analysis told from a different angle.
+
+## Where the two disagree
+
+Collapsing isoform results to one row per gene, then re-adjusting the false discovery rate
+across that new family, gives 15,312 genes tested by both methods. 1,947 are significant for
+isoform usage, 4,594 for overall expression, and **843 in both**.
+
+Fisher's exact test on the 2×2 table gives an odds ratio of about 2 and p = 1.1 × 10⁻⁴⁰.
+Genes with differential usage are twice as likely as chance to also be differentially
+expressed — a real association, and nowhere near a complete one. Each method finds signals
+the other does not.
+
+That gap is the point. Running the same GSEA on both gene rankings and plotting the normalised
+enrichment scores against each other shows the answer at pathway level:
+
+| | |
+|---|---|
+| Spearman correlation of NES | −0.082 |
+| significant in both | a minority |
+| pathways significant only in one | the majority |
+
+A negative correlation between the two rankings means that for a great many pathways, the
+gene-level analysis and the isoform-level analysis do not merely disagree on magnitude — they
+disagree on direction. Not on the same pathways, but not in the same direction.
+
+The conservative reading is that isoform-level testing is noisier and this is what noise looks
+like. The reading I would defend is narrower: at the gene level, 5,671 genes separate tumour
+from normal, and that number is an upper bound on how much of the biology the analysis
+captured. The rest is in how the transcripts are put together.
+
+## Code
+
+Every R chunk from the six notebooks that built this analysis, in the order it was written,
+pulled straight out of the `.qmd` sources by `extract_r.py` and reproduced without edits.
+
+```r
+{{< include systems/chunks/01_setup_and_poldelta.R >}}
+```
+
+```r
+{{< include systems/chunks/02_network_topology.R >}}
+```
+
+```r
+{{< include systems/chunks/03_go_overrepresentation.R >}}
+```
+
+```r
+{{< include systems/chunks/04_virtual_pulldown.R >}}
+```
+
+```r
+{{< include systems/chunks/05_deseq2.R >}}
+```
+
+```r
+{{< include systems/chunks/06_dexseq.R >}}
+```
+
+:::

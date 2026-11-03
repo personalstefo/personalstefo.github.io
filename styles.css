@@ -382,3 +382,10 @@ figure img { max-width: 100%; height: auto; }
 }
 .panel-tabset figure,
 .panel-tabset .filelist { max-width: 100%; }
+
+/* Long R lines: scroll inside the block rather than stretching the page */
+.panel-tabset pre,
+#quarto-document-content pre {
+  max-width: 100%;
+  overflow-x: auto;
+}

@@ -39,5 +39,16 @@ toc: false
     </a>
   </article>
 
+  <article class="piece">
+    <a class="piece-link" href="articles/systems.html">
+      <div class="thumb"><img src="thumb-systems.svg" alt=""></div>
+      <div class="body">
+        <div class="kicker">Systems biology</div>
+        <h3 class="piece-title">Differential expression, and what it misses</h3>
+        <p class="piece-desc">TCGA liver cancer in R: 5,671 genes separate tumour from normal, and the isoform-level analysis disagrees with them on more pathways than it agrees.</p>
+      </div>
+    </a>
+  </article>
+
 </div>
 ```
