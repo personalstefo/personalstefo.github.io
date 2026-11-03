@@ -19,9 +19,18 @@ PORT = 8899
 PROBE = """
 (function () {
   var out = {scrollW: document.documentElement.scrollWidth, vw: window.innerWidth, overflow: []};
+  // Deliberately scrollable regions (the phone tab strip, long code blocks) are
+  // allowed to be wider than the viewport as long as they clip themselves.
+  function scrollsInside(n) {
+    for (var e = n; e && e !== document.body; e = e.parentElement) {
+      var o = getComputedStyle(e).overflowX;
+      if (o === 'auto' || o === 'scroll' || o === 'hidden') return true;
+    }
+    return false;
+  }
   document.querySelectorAll('body *').forEach(function (n) {
     var r = n.getBoundingClientRect();
-    if (r.width > 0 && r.right > out.vw + 1) {
+    if (r.width > 0 && r.right > out.vw + 1 && !scrollsInside(n)) {
       out.overflow.push({el: n.tagName + '.' + (n.className || ''), right: Math.round(r.right),
                          w: Math.round(r.width)});
     }
