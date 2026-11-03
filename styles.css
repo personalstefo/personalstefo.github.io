@@ -390,10 +390,31 @@ figure img { max-width: 100%; height: auto; }
   overflow-x: auto;
 }
 
-/* ---- small screens ---- */
+/* ---- phones ---- */
 @media (max-width: 720px) {
-  /* Quarto draws a box around the tab panel; on a phone it reads as a second
-     column inset inside the padding. Drop the frame and the indent. */
+
+  /* The navbar already prints the name. The h1 repeating it read as a page
+     whose first screen was empty. On phones the hero is just the lead line. */
+  #title-block-header h1.title {
+    display: none;
+  }
+  #title-block-header {
+    margin-bottom: 0.4rem;
+  }
+  /* hiding the h1 leaves the block's top padding floating with nothing in it */
+  .quarto-title-block.default .quarto-title-banner,
+  .quarto-title-block {
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+  }
+  #quarto-document-content > .quarto-title-block + p,
+  #quarto-document-content > p:first-of-type { margin-top: 0.2rem !important; }
+  #quarto-document-content > p:first-of-type {
+    font-size: 1.02rem;
+  }
+
+  /* Quarto frames the tab panel; on a phone that reads as an inset second
+     column. Drop the frame and the indent. */
   .panel-tabset .tab-content {
     border: none;
     padding-left: 0;
@@ -401,30 +422,85 @@ figure img { max-width: 100%; height: auto; }
   }
   .panel-tabset .tab-content > .tab-pane { padding: 0; }
 
-  /* tabs get tighter and wrap into fewer rows */
-  .panel-tabset .nav-tabs {
-    gap: 0.1rem 1rem;
-    border-bottom: 1px solid var(--rule, #dcd4c8);
-    margin-bottom: 1.1rem;
+  /* Article titles: 3 lines of 2 words is not a title, it is a wall. */
+  h1, h1.title, #quarto-document-content h1 {
+    font-size: 1.6rem;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
   }
-  .panel-tabset .nav-tabs .nav-link {
-    padding: 0.5rem 0.1rem;
-    font-size: 0.74rem;
-    letter-spacing: 0.04em;
+  h2, #quarto-document-content h2 { font-size: 1.22rem; line-height: 1.25; }
+  h3, #quarto-document-content h3 { font-size: 1.04rem; }
+
+  p.subtitle {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    margin-top: 0.5rem;
   }
 
-  /* prose: a touch more leading at phone width */
+  /* Tabs: 6 keywords wrapping into 4 ragged rows ate half the first screen.
+     One scrollable row, no wrap, with a fade so it is obviously scrollable. */
+  .panel-tabset .nav-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    gap: 0 1.15rem;
+    border-bottom: 1px solid var(--rule, #dcd4c8);
+    margin-bottom: 1.2rem;
+    padding-bottom: 0;
+    mask-image: linear-gradient(to right, #000 88%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to right, #000 88%, transparent 100%);
+  }
+  .panel-tabset .nav-tabs::-webkit-scrollbar { display: none; }
+  .panel-tabset .nav-tabs .nav-link {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    padding: 0.55rem 0;
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+  }
+
+  /* Cards: full-bleed image, tighter text block under it. */
+  .piece {
+    margin-bottom: 1.6rem;
+  }
+  /* four cards stacked down a phone: halve the gap under the navbar */
+  /* Measured, not guessed: the gap above content is .quarto-container's 34px
+     padding plus main's 16px margin. Collapse both on a phone. */
+  .quarto-container { padding-top: 0.5rem !important; }
+  main.content { margin-top: 0 !important; }
+  #quarto-document-content { padding-top: 0 !important; }
+  .work { margin-top: 1.1rem; }
+  #title-block-header { margin-bottom: 0.2rem; }
+  .piece .thumb {
+    aspect-ratio: 16 / 9;
+    border-radius: 3px;
+  }
+  .piece .body { padding: 0.85rem 0.95rem 1rem; }
+  .piece-title { font-size: 1.05rem; line-height: 1.28; }
+  .piece-desc { font-size: 0.85rem; line-height: 1.5; }
+  .kicker { font-size: 0.62rem; letter-spacing: 0.1em; }
+
+  /* Prose: text sized for a phone, not a poster. */
   #quarto-document-content p,
   #quarto-document-content li {
     max-width: none;
-    line-height: 1.62;
+    font-size: 0.97rem;
+    line-height: 1.65;
   }
-  #quarto-document-content h1 { font-size: 1.85rem; line-height: 1.2; }
-  #quarto-document-content h2 { font-size: 1.35rem; }
+  #quarto-document-content { font-size: 0.97rem; }
 
-  /* the four-card grid already collapses at 720; keep the thumb 16:10 */
-  .piece .thumb { aspect-ratio: 16 / 10; }
+  /* Code is allowed to scroll sideways; it must never set the page width. */
+  pre, pre.sourceCode, .sourceCode code {
+    font-size: 0.78rem;
+    line-height: 1.5;
+  }
 
-  figure { margin: 1.5rem 0; }
-  figcaption { font-size: 0.82rem; }
+  figure { margin: 1.4rem 0; }
+  figcaption { font-size: 0.79rem; line-height: 1.45; }
+
+  /* A phone has no hover; make the whole card obviously tappable. */
+  .piece-link { display: block; }
+  a, .nav-link { -webkit-tap-highlight-color: rgba(122, 46, 14, 0.12); }
 }
