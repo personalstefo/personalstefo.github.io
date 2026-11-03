@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+<rect width="320" height="200" fill="#f3ece4"/>
+<g stroke="#c9bfb2" stroke-width="1"><path d="M28 100 H292"/><path d="M160 26 V174"/></g>
+<g fill="#7a2e0e">
+<rect x="36" y="96" width="6" height="8"/><rect x="52" y="88" width="6" height="24"/>
+<rect x="68" y="66" width="6" height="68"/><rect x="84" y="40" width="6" height="120"/>
+<rect x="100" y="74" width="6" height="52"/><rect x="116" y="90" width="6" height="20"/>
+<rect x="132" y="94" width="6" height="12"/>
+</g>
+<g fill="#2f5d50">
+<rect x="176" y="94" width="6" height="12"/><rect x="192" y="90" width="6" height="20"/>
+<rect x="208" y="74" width="6" height="52"/><rect x="224" y="40" width="6" height="120"/>
+<rect x="240" y="66" width="6" height="68"/><rect x="256" y="88" width="6" height="24"/>
+<rect x="272" y="96" width="6" height="8"/>
+</g>
+<g font-family="Inter, sans-serif" font-size="8" fill="#55504a">
+<text x="52" y="182">time</text><text x="196" y="182">frequency</text>
+</g>
+</svg>

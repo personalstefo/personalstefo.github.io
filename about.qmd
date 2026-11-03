@@ -1,0 +1,8 @@
+---
+title: "About"
+format:
+  html:
+    page-layout: article
+---
+
+This page is being rewritten.

@@ -1,0 +1,6 @@
+Robinson-Foulds Tree Distance Report
+-----------------------------------
+Number of matching tips:  100 
+Raw RF distance:  172 
+Normalized RF distance:  0.9773 
+Consensus tree saved as consensus_tree_BEAST2_MrBayes.pdf

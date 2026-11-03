@@ -1,0 +1,36 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - "*.qmd"
+    - "articles/**/*.qmd"
+  resources:
+    - "articles/outsides/figures"
+    - "articles/outsides/code"
+    - "articles/models/figures"
+    - "articles/signal/figures"
+    - "articles/signal/synth.wav"
+
+website:
+  title: "Stefan Olevinskiy"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Work
+      - href: about.qmd
+        text: About
+  favicon: favicon.svg
+  page-footer:
+    left: "Copenhagen"
+    right: "Built with Quarto"
+
+format:
+  html:
+    theme:
+      light: [cosmo, custom.scss]
+    css: styles.css
+    toc: false
+    grid:
+      body-width: 1180px
+      margin-width: 0px
+      sidebar-width: 0px

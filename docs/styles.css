@@ -1,0 +1,384 @@
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+:root {
+  --ink:        #14120f;
+  --ink-soft:   #55504a;
+  --rule:       #e2ddd5;
+  --paper:      #fbfaf7;
+  --accent:     #7a2e0e;
+  --accent-soft:#f3ece4;
+  --measure:    68ch;
+  --wide:       1180px;
+}
+
+html { font-size: 17px; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+.navbar, .quarto-title-block, footer, .sidebar, .toc {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+}
+
+/* ==========================================================================
+   Navigation
+   ========================================================================== */
+
+.navbar {
+  background: var(--paper) !important;
+  border-bottom: 1px solid var(--rule);
+  padding: .9rem 1.5rem;
+}
+
+.navbar .navbar-brand {
+  font-weight: 600;
+  letter-spacing: -.01em;
+  color: var(--ink) !important;
+}
+
+.navbar .nav-link {
+  color: var(--ink-soft) !important;
+  font-size: .82rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
+.navbar .nav-link:hover { color: var(--accent) !important; }
+
+/* ==========================================================================
+   Page shell
+   ========================================================================== */
+
+#quarto-content {
+  max-width: var(--wide);
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 5rem;
+}
+
+main.content { width: 100%; }
+
+h1, h2, h3, h4 {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+  letter-spacing: -.02em;
+  color: var(--ink);
+}
+
+h1.title {
+  font-size: clamp(2rem, 4.5vw, 3.1rem);
+  font-weight: 600;
+  line-height: 1.08;
+  margin-bottom: .4rem;
+  max-width: 24ch;
+}
+
+p.subtitle, .quarto-title-meta {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+  color: var(--ink-soft);
+  font-size: .95rem;
+}
+
+h2 { font-size: 1.45rem; font-weight: 600; margin-top: 3rem; }
+h3 { font-size: 1.1rem;  font-weight: 600; margin-top: 2.2rem; }
+
+main p, main ul, main ol, main blockquote {
+  max-width: var(--measure);
+}
+
+main p { margin-bottom: 1.05rem; }
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+hr { border: 0; border-top: 1px solid var(--rule); margin: 3rem 0; }
+
+blockquote {
+  border-left: 2px solid var(--accent);
+  padding-left: 1.1rem;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   Card grid — the home page
+   ========================================================================== */
+
+.work {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.4rem;
+  margin-top: 3rem;
+}
+
+.piece {
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #fff;
+  overflow: hidden;
+  transition: border-color .18s ease, transform .18s ease;
+}
+
+.piece-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  color: inherit;
+  text-decoration: none;
+}
+
+.piece:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.piece .thumb {
+  aspect-ratio: 16 / 10;
+  width: 100%;
+  background: var(--accent-soft);
+  border-bottom: 1px solid var(--rule);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.piece .thumb img,
+.piece .thumb svg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.piece .body { padding: 1.1rem 1.2rem 1.3rem; }
+
+.piece .kicker {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+  font-size: .7rem;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: .45rem;
+}
+
+
+
+
+
+/* ==========================================================================
+   Article: the two tabs
+   ========================================================================== */
+
+.article-tabs,
+.quarto-layout-tabset {
+  margin-top: 2.5rem;
+}
+
+.nav-tabs {
+  border-bottom: 1px solid var(--rule);
+  gap: .2rem;
+}
+
+.nav-tabs .nav-link {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+  font-size: .76rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: .55rem .9rem;
+  background: none;
+}
+
+.nav-tabs .nav-link.active {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+  background: none;
+}
+
+/* ==========================================================================
+   Figures — the centrepiece
+   ========================================================================== */
+
+figure {
+  margin: 2.2rem 0;
+  max-width: 100%;
+}
+
+/* Raw-HTML image blocks inside a tabset need the same treatment */
+.panel-tabset img,
+main img {
+  max-width: 100%;
+  height: auto;
+}
+
+figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  background: #fff;
+}
+
+figcaption {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+  font-size: .8rem;
+  color: var(--ink-soft);
+  margin-top: .6rem;
+  line-height: 1.45;
+}
+
+/* ==========================================================================
+   Code — full width, scrollable, never the hero
+   ========================================================================== */
+
+pre {
+  background: #17161a;
+  color: #e8e6e3;
+  border-radius: 3px;
+  padding: 1.1rem 1.2rem;
+  font-size: .82rem;
+  line-height: 1.55;
+  overflow-x: auto;
+  border: 1px solid #26242b;
+}
+
+pre code { color: inherit; font-size: inherit; }
+
+code:not(pre code) {
+  background: var(--accent-soft);
+  color: var(--accent);
+  padding: .1em .35em;
+  border-radius: 2px;
+  font-size: .88em;
+}
+
+.code-with-filename .code-with-filename-file {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+  font-size: .74rem;
+  letter-spacing: .04em;
+  background: #26242b;
+  color: #b9b4ad;
+  border: 1px solid #26242b;
+  border-bottom: 0;
+  border-radius: 3px 3px 0 0;
+  padding: .45rem .9rem;
+}
+
+.code-with-filename pre { border-radius: 0 0 3px 3px; margin-top: 0; }
+
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+
+table {
+  border-collapse: collapse;
+  margin: 1.8rem 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+  font-size: .86rem;
+  max-width: 100%;
+}
+
+th, td {
+  text-align: left;
+  padding: .5rem .9rem .5rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+th {
+  font-weight: 600;
+  font-size: .7rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  border-bottom-color: var(--ink-soft);
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+footer, .nav-footer {
+  border-top: 1px solid var(--rule);
+  font-size: .78rem;
+  color: var(--ink-soft);
+  padding: 1.5rem;
+}
+
+/* ==========================================================================
+   Small screens
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  html { font-size: 16px; }
+  #quarto-content { padding: 2rem 1.1rem 3.5rem; }
+  .work { grid-template-columns: 1fr; gap: 1.1rem; }
+}
+
+/* Card text styles (the cards are raw HTML, so class-scoped) */
+.piece-title {
+  margin: 0 0 .5rem;
+  font-size: 1.15rem;
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+.piece-desc {
+  margin: 0;
+  font-size: .93rem;
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+
+figure img { max-width: 100%; height: auto; }
+
+.audio-note {
+  font-size: 0.86rem;
+  color: #6b635b;
+  margin-top: -0.8rem;
+  margin-bottom: 1.6rem;
+}
+
+.filelist {
+  list-style: none;
+  padding: 0;
+  margin: 1.6rem 0;
+  border-top: 1px solid var(--rule, #dcd4c8);
+}
+.filelist li {
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--rule, #dcd4c8);
+  font-size: 0.94rem;
+}
+.filelist li a {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.88rem;
+  flex: 0 0 15rem;
+}
+.filelist li span { color: #6b635b; }
+
+@media (max-width: 1080px) {
+  .work { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 720px) {
+  .work { grid-template-columns: 1fr; }
+  .filelist li { flex-direction: column; gap: 0.15rem; }
+  .filelist li a { flex: none; }
+}
+
+#quarto-document-content p,
+#quarto-document-content li {
+  max-width: 68ch;
+}
+.panel-tabset figure,
+.panel-tabset .filelist { max-width: 100%; }

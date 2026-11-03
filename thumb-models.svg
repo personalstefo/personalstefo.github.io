@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 200">
+<rect width="320" height="200" fill="#f3ece4"/>
+<g stroke="#c9bfb2" stroke-width="1">
+<path d="M40 170 H290"/><path d="M40 170 V30"/>
+</g>
+<polyline points="45,58 80,66 115,84 150,100 185,108 220,112 255,118 285,120"
+ fill="none" stroke="#7a2e0e" stroke-width="2.2"/>
+<polyline points="45,150 80,126 115,96 150,74 185,78 220,96 255,126 285,158"
+ fill="none" stroke="#2f5d50" stroke-width="2.2" stroke-dasharray="5 4"/>
+<g fill="#7a2e0e"><circle cx="45" cy="58" r="3"/><circle cx="285" cy="120" r="3"/></g>
+<g fill="#2f5d50"><circle cx="45" cy="150" r="3"/><circle cx="285" cy="158" r="3"/></g>
+<g font-family="Inter, sans-serif" font-size="9" fill="#7a2e0e">
+<text x="196" y="110">test</text><text x="196" y="146" fill="#2f5d50">train</text>
+</g>
+</svg>
